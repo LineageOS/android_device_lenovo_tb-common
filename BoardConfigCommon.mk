@@ -201,10 +201,6 @@ TARGET_SYSTEM_PROP += $(VENDOR_PATH)/system.prop
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(VENDOR_PATH)
 
-# Shim
-TARGET_LD_SHIM_LIBS := \
-    /vendor/bin/mm-qcamera-daemon|libshims_camera.so
-
 # WiFi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HOSTAPD_DRIVER := NL80211
