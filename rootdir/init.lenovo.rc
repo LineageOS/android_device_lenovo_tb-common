@@ -29,7 +29,7 @@
 
 import /vendor/etc/init/hw/init.device.rc
 
-on fs
+on post-fs
     # Set permissions for persist partition
     mkdir /mnt/vendor/persist/bluetooth 0770 bluetooth bluetooth
     mkdir /mnt/vendor/persist/display 0770 system graphics
