@@ -42,9 +42,6 @@ on post-fs-data
     # Create folder for fingerprint ta
     mkdir /data/fingerprint 0770 root system
 
-on property:sys.boot_completed=1
-   write /sys/fs/selinux/enforce 1
-
 on early-boot
     # SSR setup
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
