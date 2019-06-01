@@ -42,6 +42,31 @@ on post-fs-data
     # Create folder for fingerprint ta
     mkdir /data/fingerprint 0770 root system
 
+#Create legacy folder for mm-qcamera-daemon
+    mkdir /data/vendor/qcam 0770 camera camera
+
+    mkdir /data/media 0770 media_rw media_rw
+    chown media_rw media_rw /data/media
+
+    #Create directory for tftp
+    mkdir /data/vendor/tombstones 0771 system system
+
+    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
+
+    mkdir /data/misc/dhcp 0777 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+    mkdir /data/system 0775 system system
+
+    mkdir /data/vendor/audio/ 0770 media audio
+
+    # Create a folder for audio delta files
+    mkdir /data/vendor/audio/acdbdata 0770 media audio
+    mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
+
 on early-boot
     # SSR setup
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
@@ -81,28 +106,3 @@ on boot
 
     # Wifi firmware reload path
     chown wifi wifi /sys/module/wlan/parameters/fwpath
-
-    #Create folder of camera
-    mkdir /data/vendor/qcam 0770 camera camera
-
-    mkdir /data/media 0770 media_rw media_rw
-    chown media_rw media_rw /data/media
-
-    #Create directory for tftp
-    mkdir /data/vendor/tombstones 0771 system system
-
-    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
-
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-
-    mkdir /data/misc/dhcp 0777 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-
-    mkdir /data/system 0775 system system
-
-    mkdir /data/vendor/audio/ 0770 media audio
-
-    # Create a folder for audio delta files
-    mkdir /data/vendor/audio/acdbdata 0770 media audio
-    mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
