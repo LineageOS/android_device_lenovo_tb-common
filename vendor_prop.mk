@@ -101,7 +101,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Usb
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config.extra=none
+    persist.vendor.usb.config.extra=none
 
 # WiFi
 PRODUCT_PROPERTY_OVERRIDES += \
