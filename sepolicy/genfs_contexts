@@ -14,7 +14,6 @@ genfscon sysfs /devices/soc/qpnp-typec-9/power_supply                 u:object_r
 genfscon sysfs /devices/soc/soc:qcom,bcl/power_supply                 u:object_r:sysfs_battery_supply:s0
 genfscon sysfs /devices/soc/7000000.ssusb/power_supply                u:object_r:sysfs_battery_supply:s0
 
-
 # Label sysfs_disk_stat for storaged use. Requires other custom rules because
 # we are practically overriding the sysfs_mmc_host label.
 genfscon sysfs /devices/soc/7824900.sdhci/mmc_host/mmc0               u:object_r:sysfs_disk_stat:s0
