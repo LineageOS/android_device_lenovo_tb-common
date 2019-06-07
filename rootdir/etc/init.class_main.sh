@@ -27,6 +27,15 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+# Get modem version from ver_info.txt
+function getModemVersion {
+    version=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
+                    sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
+                    sed 's/.*'$1'.\(.*\)/\1/g' | cut -d \- -f 1`
+    # Get first three chars to avoid problems with customer specific versions like 2.3.c1
+    version=${version:0:3}
+}  
+
 #
 # start ril-daemon only for targets on which radio is present
 #
@@ -63,27 +72,21 @@ case "$baseband" in
                 sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
                 sed 's/.*MPSS.\(.*\)/\1/g' | cut -d \. -f 1`
         if [ "$modem" = "AT" ]; then
-            version=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                    sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                    sed 's/.*AT.\(.*\)/\1/g' | cut -d \- -f 1`
+            getModemVersion $modem
             if [ ! -z $version ]; then
                 if [ "$version" \< "3.1" ]; then
                     qcrild_status=false
                 fi
             fi
         elif [ "$modem" = "TA" ]; then
-            version=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                    sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                    sed 's/.*TA.\(.*\)/\1/g' | cut -d \- -f 1`
+            getModemVersion $modem
             if [ ! -z $version ]; then
                 if [ "$version" \< "3.0" ]; then
                     qcrild_status=false
                 fi
             fi
         elif [ "$modem" = "JO" ]; then
-            version=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                    sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                    sed 's/.*JO.\(.*\)/\1/g' | cut -d \- -f 1`
+            getModemVersion $modem
             if [ ! -z $version ]; then
                 if [ "$version" \< "3.2" ]; then
                     qcrild_status=false
