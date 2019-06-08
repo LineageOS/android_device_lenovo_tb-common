@@ -42,7 +42,7 @@ function getModemVersion {
 baseband=`getprop ro.baseband`
 sgltecsfb=`getprop persist.vendor.radio.sglte_csfb`
 datamode=`getprop persist.vendor.data.mode`
-qcrild_status=true
+qcrild_status=false
 
 case "$baseband" in
     "apq" | "sda" | "qcs" )
