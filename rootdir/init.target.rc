@@ -46,6 +46,7 @@ on fs
     mkdir /mnt/vendor/persist/data 0700 system system
     mkdir /mnt/vendor/persist/bms 0700 root system
     mkdir /mnt/vendor/persist/display 0770 system graphics
+    mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
     mkdir /mnt/vendor/persist/time 0770 system system
     restorecon_recursive /mnt/vendor/persist
 
@@ -55,8 +56,8 @@ on post-fs-data
     mkdir /data/misc/dts 0770 media audio
     mkdir /data/misc/hbtp 0750 system system
 
-    # Create folder for mm-qcamera-daemon
-    mkdir /data/vendor/qcam 0770 camera camera
+    # Create folder for fingerprint ta
+    mkdir /data/fingerprint 0770 root system
 
 # Start camera server as daemon
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
@@ -72,13 +73,6 @@ service qfp-daemon /system/bin/qfp-daemon
    user system
    group system drmrpc
 
-# Allow usb charging to be disabled peristently
-on property:persist.usb.chgdisabled=1
-    write /sys/class/power_supply/battery/charging_enabled 0
-
-on property:persist.usb.chgdisabled=0
-    write /sys/class/power_supply/battery/charging_enabled 1
-
 service qrngd /system/bin/qrngd -f
    class main
    user root
@@ -93,6 +87,7 @@ service qrngp /system/bin/qrngp -f
 
 on property:sys.boot_completed=1
    start qrngp
+   write /sys/fs/selinux/enforce 1
 
 service vendor.qseecomd /vendor/bin/qseecomd
    class core
@@ -138,6 +133,8 @@ on boot
     chown system drmrpc /sys/devices/soc.0/78b7000.i2c/i2c-3/3-0020/input/input0/secure_touch
     chown system drmrpc /sys/devices/soc.0/78b8000.i2c/i2c-4/4-0020/input/input0/secure_touch_enable
     chown system drmrpc /sys/devices/soc.0/78b8000.i2c/i2c-4/4-0020/input/input0/secure_touch
+    chown system system /sys/devices/virtual/GT9110P/gt9110p/gesture
+    chmod 0664 /sys/devices/virtual/GT9110P/gt9110p/gesture
 
 service wcnss-service /vendor/bin/wcnss_service
     class late_start
@@ -215,7 +212,9 @@ on charger
     setprop persist.sys.usb.config mass_storage
     start qcom-post-boot
     setprop persist.sys.usb.config mass_storage
-    start hvdcp_opti
+    start vendor.hvdcp_opti
+#add by chenfei for hqlog JIRA A6090-105 20161117
+    setprop debug.charger.on 1
 
 service dts_configurator /system/bin/dts_configurator
     class late_start
@@ -234,10 +233,10 @@ service adsprpcd /vendor/bin/adsprpcd
     user media
     group media
 
-service hvdcp_opti /system/bin/hvdcp_opti
+service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
    class main
    user root
-   group root
+   group root wakelock
 
 on property:init.svc.dts_configurator=stopped
     start dtseagleservice

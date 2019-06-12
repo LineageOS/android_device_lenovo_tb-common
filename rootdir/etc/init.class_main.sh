@@ -1,6 +1,6 @@
 #! /vendor/bin/sh
 
-# Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
+# Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -31,20 +31,32 @@
 # start ril-daemon only for targets on which radio is present
 #
 baseband=`getprop ro.baseband`
-sgltecsfb=`getprop persist.radio.sglte_csfb`
-datamode=`getprop persist.data.mode`
+sgltecsfb=`getprop persist.vendor.radio.sglte_csfb`
+datamode=`getprop persist.vendor.data.mode`
 
 case "$baseband" in
-    "apq")
-    setprop ro.radio.noril yes
+    "apq" | "sda" | "qcs" )
+    setprop ro.vendor.radio.noril yes
     stop ril-daemon
+    stop vendor.ril-daemon
+    stop vendor.qcrild
+esac
+
+case "$baseband" in
+    "sa8")
+    start vendor.ipacm
 esac
 
 case "$baseband" in
     "msm" | "csfb" | "svlte2a" | "mdm" | "mdm2" | "sglte" | "sglte2" | "dsda2" | "unknown" | "dsda3")
     start vendor.qmuxd
-    start ipacm-diag
-    start ipacm
+esac
+
+case "$baseband" in
+    "msm" | "csfb" | "svlte2a" | "mdm" | "mdm2" | "sglte" | "sglte2" | "dsda2" | "unknown" | "dsda3" | "sdm" | "sdx" | "sm6")
+
+    start vendor.ipacm-diag
+    start vendor.ipacm
     case "$baseband" in
         "svlte2a" | "csfb")
           start qmiproxy
@@ -53,29 +65,29 @@ case "$baseband" in
           if [ "x$sgltecsfb" != "xtrue" ]; then
               start qmiproxy
           else
-              setprop persist.radio.voice.modem.index 0
+              setprop persist.vendor.radio.voice.modem.index 0
           fi
         ;;
-        "dsda2")
-          setprop persist.radio.multisim.config dsda
     esac
 
     multisim=`getprop persist.radio.multisim.config`
 
     if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
-        start ril-daemon2
+        start vendor.ril-daemon2
     elif [ "$multisim" = "tsts" ]; then
-        start ril-daemon2
-        start ril-daemon3
+        start vendor.ril-daemon2
+        start vendor.ril-daemon3
     fi
 
     case "$datamode" in
         "tethered")
             start vendor.dataqti
+            start vendor.dataadpl
             start vendor.port-bridge
             ;;
         "concurrent")
             start vendor.dataqti
+            start vendor.dataadpl
             start vendor.netmgrd
             start vendor.port-bridge
             ;;
@@ -87,9 +99,9 @@ esac
 
 #
 # Allow persistent faking of bms
-# User needs to set fake bms charge in persist.bms.fake_batt_capacity
+# User needs to set fake bms charge in persist.vendor.bms.fake_batt_capacity
 #
-fake_batt_capacity=`getprop persist.bms.fake_batt_capacity`
+fake_batt_capacity=`getprop persist.vendor.bms.fake_batt_capacity`
 case "$fake_batt_capacity" in
     "") ;; #Do nothing here
     * )

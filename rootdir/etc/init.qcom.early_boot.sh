@@ -55,16 +55,20 @@ log -t BOOT -p i "MSM target '$1', SoC '$soc_hwplatform', HwID '$soc_hwid', SoC 
 function set_density_by_fb() {
     #put default density based on width
     if [ -z $fb_width ]; then
-        setprop ro.sf.lcd_density 320
+        setprop vendor.display.lcd_density 320
     else
-        if [ $fb_width -ge 1080 ]; then
-           setprop ro.sf.lcd_density 480
+        if [ $fb_width -ge 1600 ]; then
+           setprop vendor.display.lcd_density 640
+        elif [ $fb_width -ge 1440 ]; then
+           setprop vendor.display.lcd_density 560
+        elif [ $fb_width -ge 1080 ]; then
+           setprop vendor.display.lcd_density 480
         elif [ $fb_width -ge 720 ]; then
-           setprop ro.sf.lcd_density 320 #for 720X1280 resolution
+           setprop vendor.display.lcd_density 320 #for 720X1280 resolution
         elif [ $fb_width -ge 480 ]; then
-            setprop ro.sf.lcd_density 240 #for 480X854 QRD resolution
+            setprop vendor.display.lcd_density 240 #for 480X854 QRD resolution
         else
-            setprop ro.sf.lcd_density 160
+            setprop vendor.display.lcd_density 160
         fi
     fi
 }
@@ -78,7 +82,7 @@ case "$target" in
                 ln -s  /system/usr/keychars/surf_keypad_qwerty.kcm.bin /system/usr/keychars/surf_keypad.kcm.bin
                 ;;
             "Fluid")
-                setprop ro.sf.lcd_density 240
+                setprop vendor.display.lcd_density 240
                 setprop qcom.bt.dev_power_class 2
                 ;;
             *)
@@ -90,7 +94,7 @@ case "$target" in
     "msm8660")
         case "$soc_hwplatform" in
             "Fluid")
-                setprop ro.sf.lcd_density 240
+                setprop vendor.display.lcd_density 240
                 ;;
             "Dragon")
                 setprop ro.sound.alsa "WM8903"
@@ -106,18 +110,18 @@ case "$target" in
                     setprop ro.sf.hwrotation 90
                 fi
 
-                setprop ro.sf.lcd_density 160
+                setprop vendor.display.lcd_density 160
                 ;;
             "MTP")
-                setprop ro.sf.lcd_density 240
+                setprop vendor.display.lcd_density 240
                 ;;
             *)
                 case "$soc_hwid" in
                     "109")
-                        setprop ro.sf.lcd_density 160
+                        setprop vendor.display.lcd_density 160
                         ;;
                     *)
-                        setprop ro.sf.lcd_density 240
+                        setprop vendor.display.lcd_density 240
                         ;;
                 esac
             ;;
@@ -140,16 +144,16 @@ case "$target" in
     "msm8974")
         case "$soc_hwplatform" in
             "Liquid")
-                setprop ro.sf.lcd_density 160
+                setprop vendor.display.lcd_density 160
                 # Liquid do not have hardware navigation keys, so enable
                 # Android sw navigation bar
                 setprop ro.hw.nav_keys 0
                 ;;
             "Dragon")
-                setprop ro.sf.lcd_density 240
+                setprop vendor.display.lcd_density 240
                 ;;
             *)
-                setprop ro.sf.lcd_density 320
+                setprop vendor.display.lcd_density 320
                 ;;
         esac
         ;;
@@ -157,7 +161,7 @@ case "$target" in
     "msm8226")
         case "$soc_hwplatform" in
             *)
-                setprop ro.sf.lcd_density 320
+                setprop vendor.display.lcd_density 320
                 ;;
         esac
         ;;
@@ -165,20 +169,20 @@ case "$target" in
     "msm8610" | "apq8084" | "mpq8092")
         case "$soc_hwplatform" in
             *)
-                setprop ro.sf.lcd_density 240
+                setprop vendor.display.lcd_density 240
                 ;;
         esac
         ;;
     "apq8084")
         case "$soc_hwplatform" in
             "Liquid")
-                setprop ro.sf.lcd_density 320
+                setprop vendor.display.lcd_density 320
                 # Liquid do not have hardware navigation keys, so enable
                 # Android sw navigation bar
                 setprop ro.hw.nav_keys 0
                 ;;
             "SBC")
-                setprop ro.sf.lcd_density 200
+                setprop vendor.display.lcd_density 200
                 # SBC do not have hardware navigation keys, so enable
                 # Android sw navigation bar
                 setprop qemu.hw.mainkeys 0
@@ -191,15 +195,15 @@ case "$target" in
     "msm8996")
         case "$soc_hwplatform" in
             "Dragon")
-                setprop ro.sf.lcd_density 240
+                setprop vendor.display.lcd_density 240
                 setprop qemu.hw.mainkeys 0
                 ;;
             "SBC")
-                setprop ro.sf.lcd_density 240
+                setprop vendor.display.lcd_density 240
                 setprop qemu.hw.mainkeys 0
                 ;;
             *)
-                setprop ro.sf.lcd_density 560
+                setprop vendor.display.lcd_density 560
                 ;;
         esac
         ;;
@@ -211,15 +215,15 @@ case "$target" in
         # 196610 is decimal for 0x30002 to report version 3.2
         case "$soc_hwid" in
             294|295|296|297|298|313)
-                setprop ro.opengles.version 196610
+                setprop vendor.opengles.version 196610
                 ;;
             303|307|308|309|320)
-                # Vulkan is not supported for 8917 & 8920 variants
-                setprop ro.opengles.version 196608
+                # Vulkan is not supported for 8917 variants
+                setprop vendor.opengles.version 196608
                 setprop persist.graphics.vulkan.disable true
                 ;;
             *)
-                setprop ro.opengles.version 196608
+                setprop vendor.opengles.version 196608
                 ;;
         esac
         ;;
@@ -303,32 +307,27 @@ do
     fi
 done
 
-
-
-# check for mdp caps
-setprop debug.gralloc.gfx_ubwc_disable 1
-file=/sys/class/graphics/fb0/mdp/caps
-if [ -f "$file" ]
+# check for the type of driver FB or DRM
+fb_driver=/sys/class/graphics/fb0
+if [ -e "$fb_driver" ]
 then
-    cat $file | while read line; do
-      case "$line" in
-                *"ubwc"*)
-                setprop debug.gralloc.enable_fb_ubwc 1
-                setprop debug.gralloc.gfx_ubwc_disable 0
-            esac
-    done
+    # check for mdp caps
+    file=/sys/class/graphics/fb0/mdp/caps
+    if [ -f "$file" ]
+    then
+        setprop vendor.gralloc.disable_ubwc 1
+        cat $file | while read line; do
+          case "$line" in
+                    *"ubwc"*)
+                    setprop vendor.gralloc.enable_fb_ubwc 1
+                    setprop vendor.gralloc.disable_ubwc 0
+                esac
+        done
+    fi
+else
+    set_perms /sys/devices/virtual/hdcp/msm_hdcp/min_level_change system.graphics 0660
 fi
 
-file=/sys/class/graphics/fb0
-if [ -d "$file" ]
-then
-        set_perms $file/idle_time system.graphics 0664
-        set_perms $file/dynamic_fps system.graphics 0664
-        set_perms $file/dyn_pu system.graphics 0664
-        set_perms $file/modes system.graphics 0664
-        set_perms $file/mode system.graphics 0664
-        set_perms $file/msm_cmd_autorefresh_en system.graphics 0664
-fi
 
 # set lineptr permissions for all displays
 for fb_cnt in 0 1 2 3
@@ -352,8 +351,8 @@ else
     setprop ro.vendor.alarm_boot false
 fi
 
-# copy GPU frequencies to system property
+# copy GPU frequencies to vendor property
 if [ -f /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies ]; then
     gpu_freq=`cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies` 2> /dev/null
-    setprop ro.gpu.available_frequencies "$gpu_freq"
+    setprop vendor.gpu.available_frequencies "$gpu_freq"
 fi

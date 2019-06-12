@@ -18,9 +18,6 @@
 
 set -e
 
-DEVICE=TB8703
-VENDOR=lenovo
-
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
@@ -34,8 +31,8 @@ if [ ! -f "$HELPER" ]; then
 fi
 . "$HELPER"
 
-# Default to sanitizing the vendor folder before extraction
-CLEAN_VENDOR=true
+# Default to NOT sanitizing the vendor folder before extraction
+CLEAN_VENDOR=false
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -56,23 +53,19 @@ if [ -z "$SRC" ]; then
 fi
 
 # Initialize the helper
-setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
+setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true "$CLEAN_VENDOR"
 
+extract "$MY_DIR"/proprietary-files-qc.txt "$SRC" "$SECTION"
+extract "$MY_DIR"/proprietary-files-qc-perf.txt "$SRC" "$SECTION"
 extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
-extract "$MY_DIR"/proprietary-files-twrp.txt "$SRC" "$SECTION"
 
-BLOB_ROOT="$LINEAGE_ROOT"/vendor/"$VENDOR"/"$DEVICE"/proprietary
+if [ -s "$MY_DIR"/../$DEVICE/proprietary-files.txt ]; then
+    # Reinitialize the helper for device
+    setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
 
-TWRP_QSEECOMD="$BLOB_ROOT"/recovery/root/sbin/qseecomd
+    extract "$MY_DIR"/../$DEVICE/proprietary-files.txt "$SRC" "$SECTION"
+fi
 
-sed -i "s|/system/bin/linker64|/sbin/linker64\x0\x0\x0\x0\x0\x0|g" "$TWRP_QSEECOMD"
-
-for HIDL_BASE_LIB in $(grep -lr "android\.hidl\.base@1\.0\.so" $BLOB_ROOT); do
-    patchelf --remove-needed android.hidl.base@1.0.so "$HIDL_BASE_LIB" || true
-done
-
-for HIDL_MANAGER_LIB in $(grep -lr "android\.hidl\.@1\.0\.so" $BLOB_ROOT); do
-    patchelf --remove-needed android.hidl.manager@1.0.so "$HIDL_MANAGER_LIB" || true
-done
+COMMON_BLOB_ROOT="$LINEAGE_ROOT"/vendor/"$VENDOR"/"$DEVICE_COMMON"/proprietary
 
 "$MY_DIR"/setup-makefiles.sh

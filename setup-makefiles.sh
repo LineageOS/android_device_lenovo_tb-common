@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2016 The CyanogenMod Project
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2017-2019 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +18,7 @@
 
 set -e
 
-DEVICE=TB8703
-VENDOR=lenovo
-
-INITIAL_COPYRIGHT_YEAR=2018
+INITIAL_COPYRIGHT_YEAR=2019
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
@@ -36,21 +33,29 @@ if [ ! -f "$HELPER" ]; then
 fi
 . "$HELPER"
 
-# Initialize the helper
-setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT"
+# Initialize the helper for common
+setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true
 
 # Copyright headers and guards
-write_headers
+write_headers "TB8703 TBX704"
 
 # Main Qcom blobs
-write_makefiles "$MY_DIR"/proprietary-files.txt
-
-# Blobs for TWRP data decryption
-cat << EOF >> "$BOARDMK"
-ifeq (\$(WITH_TWRP),true)
-TARGET_RECOVERY_DEVICE_DIRS += vendor/$VENDOR/$DEVICE/proprietary
-endif
-EOF
+write_makefiles "$MY_DIR"/proprietary-files.txt true
 
 # Finish
 write_footers
+
+if [ -s "$MY_DIR"/../$DEVICE/proprietary-files.txt ]; then
+    # Reinitialize the helper for device
+    INITIAL_COPYRIGHT_YEAR="$DEVICE_BRINGUP_YEAR"
+    setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false
+
+    # Copyright headers and guards
+    write_headers
+
+    # The standard device blobs
+    write_makefiles "$MY_DIR"/../$DEVICE/proprietary-files.txt true
+
+    # We are done!
+    write_footers
+fi

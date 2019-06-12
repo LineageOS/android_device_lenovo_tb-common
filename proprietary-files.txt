@@ -22,15 +22,6 @@ vendor/lib64/libacdbrtac.so|c44ff9b9aa63e34ca1b77a5f0bfb6a5e50585048
 vendor/lib64/libadiertac.so|aeaf6f057d26acf342609c714213e1c9b3409774
 vendor/lib64/libaudcal.so|96c43cbe0ac304ea128def709d7f3ea99db7f260
 
-# Audio ACDB
-etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb:vendor/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
-etc/acdbdata/MTP/MTP_General_cal.acdb:vendor/etc/acdbdata/MTP/MTP_General_cal.acdb
-etc/acdbdata/MTP/MTP_Global_cal.acdb:vendor/etc/acdbdata/MTP/MTP_Global_cal.acdb
-etc/acdbdata/MTP/MTP_Handset_cal.acdb:vendor/etc/acdbdata/MTP/MTP_Handset_cal.acdb
-etc/acdbdata/MTP/MTP_Hdmi_cal.acdb:vendor/etc/acdbdata/MTP/MTP_Hdmi_cal.acdb
-etc/acdbdata/MTP/MTP_Headset_cal.acdb:vendor/etc/acdbdata/MTP/MTP_Headset_cal.acdb
-etc/acdbdata/MTP/MTP_Speaker_cal.acdb:vendor/etc/acdbdata/MTP/MTP_Speaker_cal.acdb
-
 # Bluetooth - from tissot - PKQ1.180917.001.V10.0.4.0.PDHMIXM
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti|9178856dc8651b499d1b155825b6115a486ee05e
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc|a979981c55f3dcaf6cf2212e71b901ca4d58b959
@@ -41,197 +32,6 @@ vendor/lib64/libbt-hidlclient.so|0b0b69ef9787e3cd5409f0050cad03698dd6ce26
 # Bluetooth (shared dependencies) - from tissot - PKQ1.180917.001.V10.0.4.0.PDHMIXM
 vendor/lib64/com.qualcomm.qti.ant@1.0.so|3a19c81d66ef1190d0b2f361420d5cbf707cc600
 vendor/lib64/vendor.qti.hardware.fm@1.0.so|dc576dfcb0bf390a106b5ed8861e7f547110cbf1
-
-
-# Camera
-bin/mm-qcamera-daemon:vendor/bin/mm-qcamera-daemon
-vendor/lib/libchromaflash.so
-vendor/lib/libjpegdhw.so
-vendor/lib/libjpegdmahw.so
-vendor/lib/libjpegehw.so
-vendor/lib/libllvd_smore.so
-vendor/lib/libllvd_sw_tnr.so
-vendor/lib/libmmcamera2_c2d_module.so
-vendor/lib/libmmcamera2_cpp_module.so
-vendor/lib/libmmcamera2_dcrf.so
-vendor/lib/libmmcamera2_frame_algorithm.so
-vendor/lib/libmmcamera2_iface_modules.so
-vendor/lib/libmmcamera2_imglib_modules.so
-vendor/lib/libmmcamera2_is.so
-vendor/lib/libmmcamera2_isp_modules.so
-vendor/lib/libmmcamera2_mct.so
-vendor/lib/libmmcamera2_pp_buf_mgr.so
-vendor/lib/libmmcamera2_pproc_modules.so
-vendor/lib/libmmcamera2_q3a_core.so
-vendor/lib/libmmcamera2_sensor_modules.so
-vendor/lib/libmmcamera2_stats_algorithm.so
-vendor/lib/libmmcamera2_stats_modules.so
-vendor/lib/libmmcamera_chromaflash_lib.so
-vendor/lib/libmmcamera_dbg.so
-vendor/lib/libmmcamera_dcrf_lib.so
-vendor/lib/libmmcamera_dummyalgo.so
-vendor/lib/libmmcamera_eebinparse.so
-vendor/lib/libmmcamera_eeprom_util.so
-vendor/lib/libmmcamera_eztune_module.so
-vendor/lib/libmmcamera_faceproc.so
-vendor/lib/libmmcamera_hdr_gb_lib.so
-vendor/lib/libmmcamera_imglib.so
-vendor/lib/libmmcamera_isp_abf40.so
-vendor/lib/libmmcamera_isp_bcc40.so
-vendor/lib/libmmcamera_isp_be_stats44.so
-vendor/lib/libmmcamera_isp_bf_stats47.so
-vendor/lib/libmmcamera_isp_bg_stats44.so
-vendor/lib/libmmcamera_isp_bhist_stats44.so
-vendor/lib/libmmcamera_isp_bpc40.so
-vendor/lib/libmmcamera_isp_chroma_enhan40.so
-vendor/lib/libmmcamera_isp_chroma_suppress40.so
-vendor/lib/libmmcamera_isp_clamp_encoder40.so
-vendor/lib/libmmcamera_isp_clamp_video40.so
-vendor/lib/libmmcamera_isp_clamp_viewfinder40.so
-vendor/lib/libmmcamera_isp_color_correct40.so
-vendor/lib/libmmcamera_isp_color_xform_encoder40.so
-vendor/lib/libmmcamera_isp_color_xform_viewfinder40.so
-vendor/lib/libmmcamera_isp_cs_stats44.so
-vendor/lib/libmmcamera_isp_demosaic40.so
-vendor/lib/libmmcamera_isp_demux40.so
-vendor/lib/libmmcamera_isp_fovcrop_encoder40.so
-vendor/lib/libmmcamera_isp_fovcrop_viewfinder40.so
-vendor/lib/libmmcamera_isp_gamma40.so
-vendor/lib/libmmcamera_isp_ihist_stats44.so
-vendor/lib/libmmcamera_isp_linearization40.so
-vendor/lib/libmmcamera_isp_ltm44.so
-vendor/lib/libmmcamera_isp_luma_adaptation40.so
-vendor/lib/libmmcamera_isp_mce40.so
-vendor/lib/libmmcamera_isp_mesh_rolloff40.so
-vendor/lib/libmmcamera_isp_rs_stats44.so
-vendor/lib/libmmcamera_isp_scaler_encoder44.so
-vendor/lib/libmmcamera_isp_scaler_viewfinder44.so
-vendor/lib/libmmcamera_isp_sce40.so
-vendor/lib/libmmcamera_isp_sub_module.so
-vendor/lib/libmmcamera_isp_template.so
-vendor/lib/libmmcamera_isp_wb40.so
-vendor/lib/libmmcamera_llvd.so
-vendor/lib/libmmcamera_optizoom_lib.so
-vendor/lib/libmmcamera_pdaf.so
-vendor/lib/libmmcamera_pdafcamif.so
-vendor/lib/libmmcamera_ppbase_module.so
-vendor/lib/libmmcamera_sw_tnr.so
-vendor/lib/libmmcamera_thread_services.so
-vendor/lib/libmmcamera_tintless_algo.so
-vendor/lib/libmmcamera_tintless_bg_pca_algo.so
-vendor/lib/libmmcamera_trueportrait_lib.so
-vendor/lib/libmmcamera_ubifocus_lib.so
-vendor/lib/libmmjpeg.so
-vendor/lib/libmmqjpeg_codec.so
-vendor/lib/libmmqjpegdma.so
-vendor/lib/liboptizoom.so
-vendor/lib/libqomx_jpegdec.so
-vendor/lib/libqomx_jpegenc.so
-vendor/lib/libqomx_jpegenc_pipe.so
-vendor/lib/libseemore.so
-vendor/lib/libtrueportrait.so
--vendor/lib/libts_detected_face_hal.so
--vendor/lib/libts_face_beautify_hal.so
-vendor/lib/libubifocus.so
-
-# Camera actuator
-vendor/lib/libactuator_dw9718s.so
-
-# Camera chromatix
-vendor/lib/libchromatix_ov5695_f5695ak_a3_default_preview.so
-vendor/lib/libchromatix_ov5695_f5695ak_a3_default_video.so
-vendor/lib/libchromatix_ov5695_f5695ak_a3_hfr_120.so
-vendor/lib/libchromatix_ov5695_f5695ak_a3_hfr_60.so
-vendor/lib/libchromatix_ov5695_f5695ak_a3_hfr_90.so
-vendor/lib/libchromatix_ov5695_f5695ak_common.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_ds_chromatix.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_hfr_120.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_hfr_60.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_hfr_90.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_liveshot.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_preview.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_snapshot.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_us_chromatix.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_video.so
-vendor/lib/libchromatix_ov5695_f5695ak_cpp_video_full.so
-vendor/lib/libchromatix_ov5695_f5695ak_default_video.so
-vendor/lib/libchromatix_ov5695_f5695ak_hfr_120.so
-vendor/lib/libchromatix_ov5695_f5695ak_hfr_60.so
-vendor/lib/libchromatix_ov5695_f5695ak_hfr_90.so
-vendor/lib/libchromatix_ov5695_f5695ak_liveshot.so
-vendor/lib/libchromatix_ov5695_f5695ak_postproc.so
-vendor/lib/libchromatix_ov5695_f5695ak_preview.so
-vendor/lib/libchromatix_ov5695_f5695ak_snapshot.so
-vendor/lib/libchromatix_ov5695_f5695ak_video_full.so
-vendor/lib/libchromatix_ov5695_f5695ak_zsl_preview.so
-vendor/lib/libchromatix_ov5695_f5695ak_zsl_video.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_a3_default_preview.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_a3_default_video.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_a3_hfr_120.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_a3_hfr_60.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_a3_hfr_90.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_common.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_ds_chromatix.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_hfr_120.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_hfr_60.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_hfr_90.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_liveshot.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_preview.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_snapshot.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_us_chromatix.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_video.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_cpp_video_full.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_default_video.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_hfr_120.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_hfr_60.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_hfr_90.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_liveshot.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_postproc.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_preview.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_snapshot.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_video_full.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_zsl_preview.so
-vendor/lib/libchromatix_ov5695_ccbfl05006_zsl_video.so
-vendor/lib/libchromatix_imx219_fx219aq_a3_default_preview.so
-vendor/lib/libchromatix_imx219_fx219aq_a3_default_video.so
-vendor/lib/libchromatix_imx219_fx219aq_a3_hfr_120.so
-vendor/lib/libchromatix_imx219_fx219aq_a3_hfr_60.so
-vendor/lib/libchromatix_imx219_fx219aq_a3_hfr_90.so
-vendor/lib/libchromatix_imx219_fx219aq_common.so
-vendor/lib/libchromatix_imx219_fx219aq_cpp_hfr_120.so
-vendor/lib/libchromatix_imx219_fx219aq_cpp_hfr_60.so
-vendor/lib/libchromatix_imx219_fx219aq_cpp_hfr_90.so
-vendor/lib/libchromatix_imx219_fx219aq_cpp_liveshot.so
-vendor/lib/libchromatix_imx219_fx219aq_cpp_preview.so
-vendor/lib/libchromatix_imx219_fx219aq_cpp_snapshot.so
-vendor/lib/libchromatix_imx219_fx219aq_cpp_video.so
-vendor/lib/libchromatix_imx219_fx219aq_hfr_120.so
-vendor/lib/libchromatix_imx219_fx219aq_hfr_60.so
-vendor/lib/libchromatix_imx219_fx219aq_hfr_90.so
-vendor/lib/libchromatix_imx219_fx219aq_postproc.so
-vendor/lib/libchromatix_imx219_fx219aq_preview.so
-vendor/lib/libchromatix_imx219_fx219aq_snapshot.so
-vendor/lib/libchromatix_imx219_fx219aq_zsl_preview.so
-vendor/lib/libchromatix_imx219_fx219aq_zsl_video.so
-
-# Camera eeprom
-vendor/lib/libmmcamera_qtech_f5695ak_eeprom.so
-vendor/lib/libmmcamera_qtech_imx219_fx219aq_eeprom.so
-
-# Camera firmware
-etc/firmware/cpp_firmware_v1_5_0.fw:vendor/firmware/cpp_firmware_v1_5_0.fw
-
-# Camera flash
-vendor/lib/libflash_pmic.so
-
-# Camera sensors
-etc/camera/msm8953_camera.xml:vendor/etc/camera/msm8953_camera.xml
-etc/camera/ov5695_f5695ak_chromatix.xml:vendor/etc/camera/ov5695_f5695ak_chromatix.xml
-etc/camera/ov5695_ccbfl05006_chromatix.xml:vendor/etc/camera/ov5695_ccbfl05006_chromatix.xml
-etc/camera/imx219_fx219aq_chromatix.xml:vendor/etc/camera/imx219_fx219aq_chromatix.xml
-vendor/lib/libmmcamera_ov5695_f5695ak.so
-vendor/lib/libmmcamera_ov5695_ccbfl05006.so
-vendor/lib/libmmcamera_imx219_fx219aq.so
 
 # CNE - from tissot - PKQ1.180917.001.V10.0.4.0.PDHMIXM
 etc/permissions/cneapiclient.xml|15831adf0e80243042b90c734eea0a68eb8ae9c9
@@ -403,24 +203,6 @@ vendor/lib64/libtinyxml2_1.so|b743b93bbb47bb2d80322fcfb985b7b8c696fa1b
 vendor/lib/hw/vulkan.msm8953.so|6259874ee4fe1a414b5e2109ec63af55a70d3733
 vendor/lib64/hw/vulkan.msm8953.so|e1905916771354829868a65e6757615c7de20b71
 
-# Graphics firmware TB-8703X
-etc/firmware/a506_zap.b00:vendor/firmware/variant/msm/a506_zap.b00
-etc/firmware/a506_zap.b01:vendor/firmware/variant/msm/a506_zap.b01
-etc/firmware/a506_zap.b02:vendor/firmware/variant/msm/a506_zap.b02
-etc/firmware/a506_zap.elf:vendor/firmware/variant/msm/a506_zap.elf
-etc/firmware/a506_zap.mdt:vendor/firmware/variant/msm/a506_zap.mdt
-
-# Graphics firmware TB-8703F
-etc/firmware/a506_zap.b00:vendor/firmware/variant/apq/a506_zap.b00
-etc/firmware/a506_zap.b01:vendor/firmware/variant/apq/a506_zap.b01
-etc/firmware/a506_zap.b02:vendor/firmware/variant/apq/a506_zap.b02
-etc/firmware/a506_zap.elf:vendor/firmware/variant/apq/a506_zap.elf
-etc/firmware/a506_zap.mdt:vendor/firmware/variant/apq/a506_zap.mdt
-
-# Graphics firmware common
-etc/firmware/a530_pfp.fw:vendor/firmware/a530_pfp.fw
-etc/firmware/a530_pm4.fw:vendor/firmware/a530_pm4.fw
-
 # IMS - from tissot - PKQ1.180917.001.V10.0.4.0.PDHMIXM
 -app/uceShimService/uceShimService.apk|d2ecdb607749b0496664db52b706e9340bd9b9f0
 lib64/lib-imscamera.so|6d9c63ad43e5dca62dea7a47e7b121bc4df317f9
@@ -490,7 +272,6 @@ vendor/lib/libOmxWmaDec.so|015c01595f055fe92ba7210cb9a5bec4a38a06ee
 vendor/lib/libvpplibrary.so|77d1d8d7fa879d1c5df1fb4e210de1e715bf139e
 vendor/lib/libvqzip.so|0b906db131e99cd5460b8a72d05e86721243de95
 vendor/lib64/libgpustats.so|35eaab728b21fe7cd33b821bf5cf13ea1117cd90
-
 
 # Perf - from tissot - PKQ1.180917.001.V10.0.4.0.PDHMIXM
 vendor/bin/energy-awareness|d9b3f1cc791e0e9612a5ff5df6836af4c921a52b
@@ -629,7 +410,7 @@ vendor/bin/hw/android.hardware.drm@1.1-service.widevine|9743c4ecd0fb8773795bcbfb
 vendor/etc/init/android.hardware.drm@1.1-service.widevine.rc|5a01d337c1d375ee24a6c8992ba91f54afb7637e
 vendor/lib64/libwvhidl.so|a3444ac0deb8144a08ba2ed1dad2f2369096c7af
 
-# Wi-Fi
+# WiFi
 bin/wcnss_service:vendor/bin/wcnss_service
 
 # WiFi Display - from tissot - PKQ1.180917.001.V10.0.4.0.PDHMIXM

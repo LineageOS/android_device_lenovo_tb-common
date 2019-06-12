@@ -403,7 +403,7 @@ case "$target" in
                 echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 echo 1497600 > /sys/module/cpu_boost/parameters/input_boost_freq
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
-                setprop ro.qualcomm.perf.cores_online 2
+                setprop ro.vendor.perf.cores_online 2
             ;;
             *)
                 echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
@@ -1638,7 +1638,7 @@ case "$target" in
         echo 300000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
         echo 300000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq
         echo 1 > /sys/module/msm_thermal/core_control/enabled
-        setprop ro.qualcomm.perf.cores_online 2
+        setprop ro.vendor.perf.cores_online 2
         chown -h  system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
         chown -h system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
         chown -h root.system /sys/devices/system/cpu/mfreq
@@ -2194,7 +2194,7 @@ chown -h system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
 chown -h system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
 chown -h system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
 
-emmc_boot=`getprop ro.boot.emmc`
+emmc_boot=`getprop vendor.boot.emmc`
 case "$emmc_boot"
     in "true")
         chown -h system /sys/devices/platform/rs300000a7.65536/force_sync
