@@ -23,30 +23,17 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-def IncrementalOTA_Assertions(info):
-  AddAssertion(info)
-
-def IncrementalOTA_VerifyBegin(info):
-  # Workaround for apn list changes
-  RestoreDeviceConfig(info)
-
 def IncrementalOTA_InstallEnd(info):
-  ReplaceDeviceConfig(info)
-
-def FullOTA_Assertions(info):
-  AddAssertion(info)
+  info.script.Mount("/system")
+  RunCustomScript(info, "deunify.sh", "")
+  info.script.Unmount("/system")
+  return
 
 def FullOTA_InstallEnd(info):
-  ReplaceDeviceConfig(info)
-
-def AddAssertion(info):
-  pass
-
-def ReplaceDeviceConfig(info):
   info.script.Mount("/system")
-  info.script.AppendExtra('ui_print("Copying device specific files.");')
-  info.script.AppendExtra('run_program("/sbin/sh", "/tmp/install/bin/move_files.sh");')
+  RunCustomScript(info, "deunify.sh", "")
   info.script.Unmount("/system")
 
-def RestoreDeviceConfig(info):
-  pass
+def RunCustomScript(info, name, arg):
+  info.script.AppendExtra(('run_program("/tmp/install/bin/%s", "%s");' % (name, arg)))
+  return

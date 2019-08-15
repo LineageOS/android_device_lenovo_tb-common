@@ -96,6 +96,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapminfree=2m \
     dalvik.vm.heapmaxfree=8m
 
+# Deunify script
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bin/deunify.sh:install/bin/deunify.sh
+
 # Display
 PRODUCT_PACKAGES += \
     gralloc.msm8953 \
@@ -128,10 +132,6 @@ PRODUCT_PACKAGES += \
 # For config.fs
 PRODUCT_PACKAGES += \
     fs_config_files
-
-# Firmware patch
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/move_files.sh:install/bin/move_files.sh
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
