@@ -96,10 +96,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapminfree=2m \
     dalvik.vm.heapmaxfree=8m
 
-# Deunify script
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/bin/deunify.sh:install/bin/deunify.sh
-
 # Display
 PRODUCT_PACKAGES += \
     gralloc.msm8953 \
@@ -292,6 +288,18 @@ PRODUCT_PACKAGES += \
     rcs_service_aidl.xml \
     rcs_service_api \
     rcs_service_api.xml
+
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_lenovo
+
+# Releasetools
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bin/toybox:install/bin/toybox \
+    $(LOCAL_PATH)/prebuilt/bin/deunify.sh:install/bin/deunify.sh \
+    $(LOCAL_PATH)/prebuilt/bin/sgdisk:install/bin/sgdisk \
+    $(LOCAL_PATH)/prebuilt/bin/unlock-vendor.sh:install/bin/unlock-vendor.sh \
+    $(LOCAL_PATH)/prebuilt/bin/partprobe.sh:install/bin/partprobe.sh
 
 # RIL
 PRODUCT_PACKAGES += \
