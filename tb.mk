@@ -349,6 +349,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     hostapd \
+    wcnss_service \
     wpa_supplicant \
     wpa_supplicant.conf
 
