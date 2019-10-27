@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-VENDOR_PATH := device/lenovo/tb-common
+COMMON_PATH := device/lenovo/tb-common
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8953
@@ -119,7 +119,7 @@ TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # Filesystem
-TARGET_FS_CONFIG_GEN := $(VENDOR_PATH)/config.fs
+TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # FM
 BOARD_HAVE_QCOM_FM := true
@@ -137,16 +137,16 @@ TARGET_USES_HWC2 := true
 TARGET_USES_ION := true
 
 # HIDL
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(VENDOR_PATH)/vendor_framework_compatibility_matrix.xml
-DEVICE_FRAMEWORK_MANIFEST_FILE := $(VENDOR_PATH)/framework_manifest.xml
-DEVICE_MANIFEST_FILE := $(VENDOR_PATH)/manifest.xml
-DEVICE_MATRIX_FILE := $(VENDOR_PATH)/compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(COMMON_PATH)/vendor_framework_compatibility_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := $(COMMON_PATH)/framework_manifest.xml
+DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3
 BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci loop.max_part=7
-#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_OFFSET = 0x00008000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -167,7 +167,7 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
-BOARD_ROOT_EXTRA_SYMLINKS := \
+BOARD_ROOT_EXTRA_SYMLINKS += \
     /vendor/dsp:/dsp \
     /vendor/firmware_mnt:/firmware
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -178,7 +178,7 @@ TARGET_HAS_NO_WLAN_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/fstab.qcom
 
 # RIL
 TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
@@ -186,8 +186,18 @@ TARGET_RIL_VARIANT := caf
 TARGET_USES_OLD_MNC_FORMAT := true
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(VENDOR_PATH)/sepolicy
+SELINUX_IGNORE_NEVERALLOWS := true
+
+include device/qcom/sepolicy-legacy-um/sepolicy.mk
+
+BOARD_SEPOLICY_DIRS += \
+    $(COMMON_PATH)/sepolicy
+
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR += \
+    $(COMMON_PATH)/sepolicy/public
+
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
+    $(COMMON_PATH)/sepolicy/private
 
 # Qualcomm support
 BOARD_USES_QCOM_HARDWARE := true
@@ -196,10 +206,10 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_POWERHAL_VARIANT := qcom
 
 # Properties
-TARGET_SYSTEM_PROP += $(VENDOR_PATH)/system.prop
+TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
 
 # Releasetools
-TARGET_RELEASETOOLS_EXTENSIONS := $(VENDOR_PATH)
+TARGET_RELEASETOOLS_EXTENSIONS := $(COMMON_PATH)
 
 # WiFi
 BOARD_HAS_QCOM_WLAN := true
