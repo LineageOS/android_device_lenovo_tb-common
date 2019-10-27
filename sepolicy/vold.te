@@ -1,1 +1,0 @@
-allow vold sysfs_disk_stat:file create_file_perms;
