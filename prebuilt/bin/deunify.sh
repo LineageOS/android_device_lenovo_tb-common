@@ -10,7 +10,7 @@ done
 
 # Move variant-specific blobs
 mv /system/system/vendor/firmware/variant/$baseband/a506_zap* /system/system/vendor/firmware/
-mv /system/system/vendor/firmware/variant/$baseband/goodixfp* /system/system/vendor/firmware/
+mv /system/system/vendor/firmware/variant/$baseband/goodixfp* /system/system/etc/firmware/
 rm -rf /system/system/vendor/firmware/variant
 
 # Remove telephony files for wifi variant
