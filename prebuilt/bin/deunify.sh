@@ -25,6 +25,5 @@ if [ "$baseband" == "apq" ]; then
     rm -rf /system/system/priv-app/CellBroadcastReceiver
     rm -rf /system/system/priv-app/Dialer
     rm -rf /system/system/priv-app/Telecom
-    rm -rf /system/system/priv-app/TelephonyProvider
     rm -rf /system/system/priv-app/TeleService
 fi
